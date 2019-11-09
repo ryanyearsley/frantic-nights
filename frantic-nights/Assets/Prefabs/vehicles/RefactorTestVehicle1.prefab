@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &34492203712369090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8329558973395847157}
+  - component: {fileID: 4445801504917173713}
+  m_Layer: 8
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8329558973395847157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34492203712369090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1833165061481859005}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4445801504917173713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34492203712369090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1243e512a51214f8150748f5f0dc95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gear: 0
+  gearDisplay: {fileID: 0}
+  kphDisplay: {fileID: 0}
+  debugDisplay: {fileID: 0}
+  tachNeedle: {fileID: 0}
+  idleTachAngle: 0
+  redlineTachAngle: 0
 --- !u!1 &1835579248130355881
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,8 +60,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1833165061481859005}
   - component: {fileID: 1855333249353963631}
-  - component: {fileID: 1794795469024389819}
-  - component: {fileID: 1795302075256672785}
+  - component: {fileID: 989589213087642563}
+  - component: {fileID: 8231901450527199036}
+  - component: {fileID: 4860716678596921745}
+  - component: {fileID: 640682418827972608}
+  - component: {fileID: 1181120686740804103}
   m_Layer: 8
   m_Name: RefactorTestVehicle1
   m_TagString: Untagged
@@ -30,6 +83,7 @@ Transform:
   m_LocalPosition: {x: 9.13, y: 50.8, z: -23.92}
   m_LocalScale: {x: 0.93728524, y: 1, z: 1}
   m_Children:
+  - {fileID: 8329558973395847157}
   - {fileID: 1833280454785092345}
   - {fileID: 1833001126653824675}
   - {fileID: 1833049172327683701}
@@ -57,7 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &1794795469024389819
+--- !u!114 &989589213087642563
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,14 +120,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1835579248130355881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61682be5314d0440b9e67529196ac1a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 305c2550c0024be45849a8608b486b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  naturalFrequency: 12.5
-  dampingRatio: 0.88
-  forceShift: 0.04
-  setSuspensionDistance: 1
---- !u!114 &1795302075256672785
+  currentInput: {fileID: 8231901450527199036}
+--- !u!114 &8231901450527199036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,49 +133,58 @@ MonoBehaviour:
   m_GameObject: {fileID: 1835579248130355881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ed7128051760b42bc56c15e5a6657d, type: 3}
+  m_Script: {fileID: 11500000, guid: e4318c9f7c4aae345b95f9ae764b0d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAngle: 32
-  currentAngle: 0
+  accelInput: 0
+  brakeInput: 0
+  clutchInput: 0
+  steeringInput: 0
+  gearUpButtonDown: 0
+  gearDownButtonDown: 0
+  handBrakeButton: 0
+  pitchInput: 0
+  rollInput: 0
+  yawInput: 0
+--- !u!114 &4860716678596921745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835579248130355881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c74ce0f65b2f043979b3bd74a80938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSteeringAngle: 0
+  maxAngle: 30
   steerSmooth: 0.1
-  maxTorque: 2000
-  brakeTorque: 10000
-  handbrakeTorque: 20000
-  wheelShape: {fileID: 1905918231147756, guid: c6973c2cc182ff4498ac1122193d41c2, type: 3}
-  centerOfMass: {x: 0, y: -0.1, z: 0}
-  airFloat: 0
-  pushSpeed: 2000
-  yawSpeed: 2000
-  rotSpeed: 1500
-  pitchSpeed: 2000
+  maxTorque: 1000
+  accelTest: 0
+  Redlined: 0
+  brakeTorque: 30000
+  handbrakeTorque: 50000
+  driveType: 0
   torqueCurves:
   - serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: -0.45421982
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.08038569
-      value: -0.5154644
-      inSlope: -0.6362441
-      outSlope: -0.6362441
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.9999795
-      value: -0.3815052
-      inSlope: -0
-      outSlope: -0
-      tangentMode: 0
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -135,189 +195,68 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.60005796
+      value: -1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.08038569
-      value: 0.6434795
-      inSlope: 0.6362441
-      outSlope: 0.6362441
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.9999795
-      value: 0.54850435
+      time: 1
+      value: -1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.17499998
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.30554384
-      value: 0.728517
-      inSlope: 1.3183802
-      outSlope: 1.3183802
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.0114429
-      value: 0.59810024
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.0017094017
-      value: 0.11539061
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.27304092
-      value: 0.48212522
-      inSlope: 1.4433265
-      outSlope: 1.4433265
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.9997864
-      value: 0.6568419
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.19374998
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.46557868
-      value: 0.42913535
-      inSlope: 1.302287
-      outSlope: 1.302287
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.6342351
-      value: 0.82836986
-      inSlope: 1.4145323
-      outSlope: 1.4145323
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.0007316
-      value: 0.7203143
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  - serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.22286205
-      outSlope: 0.22286205
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.7834225
-      value: 0.92096657
-      inSlope: 0.84974056
-      outSlope: 0.84974056
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.0012431
-      value: 0.9678588
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
   isReverse: 0
-  topSpeed: 3e0000003e0000006d000000a5000000df00000013010000
-  currentSpeed: 0
-  gear: 1
+  topSpeed: 4100000041000000
+  criticalSpeed: 5
+  stepsBelow: 5
+  stepsAbove: 1
+  wheelShape: {fileID: 0}
+--- !u!114 &640682418827972608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835579248130355881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdddf09826741dc48b26589e06315c78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   gearDisplay: {fileID: 0}
   kphDisplay: {fileID: 0}
   debugDisplay: {fileID: 0}
-  criticalSpeed: 8
-  currentTorque: 0
-  accelTest: 0
-  Redlined: 0
-  stepsBelow: 7
-  stepsAbove: 2
   tachNeedle: {fileID: 0}
   idleTachAngle: 0
   redlineTachAngle: 0
-  driveType: 2
+--- !u!114 &1181120686740804103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835579248130355881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349eb070c3a625f43b8c1cd32ab32d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   rb: {fileID: 1855333249353963631}
+  centerOfMass: {x: 0, y: 0, z: 0}
+  airFloat: 2000
+  pushSpeed: 1000
+  yawSpeed: 2000
+  rotSpeed: 2000
+  pitchSpeed: 3000
 --- !u!1 &1835586232775668603
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833049172327683701}
   - component: {fileID: 1979560105403014757}
+  - component: {fileID: 4621158434155823616}
   m_Layer: 8
   m_Name: a1r
   m_TagString: Untagged
@@ -377,7 +317,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &1979560105403014757
 WheelCollider:
@@ -409,6 +349,24 @@ WheelCollider:
     m_AsymptoteValue: 3
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!114 &4621158434155823616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835762383478146461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1407b185110d54bac1966335d00a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheel: {fileID: 0}
+  startSlipValue: 0.55
+  receivingPower: 0
+  receivingTurnInput: 0
+  rpmSensorWheel: 0
+  wheelShapePrefab: {fileID: 0}
 --- !u!1 &1835763036083113517
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1832807620930543659}
   - component: {fileID: 1979280765492391339}
+  - component: {fileID: 537582093752358881}
   m_Layer: 8
   m_Name: a1l
   m_TagString: Untagged
@@ -468,7 +427,7 @@ Transform:
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &1979280765492391339
 WheelCollider:
@@ -500,6 +459,24 @@ WheelCollider:
     m_AsymptoteValue: 3
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!114 &537582093752358881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835773747649095091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1407b185110d54bac1966335d00a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheel: {fileID: 0}
+  startSlipValue: 0.55
+  receivingPower: 0
+  receivingTurnInput: 0
+  rpmSensorWheel: 0
+  wheelShapePrefab: {fileID: 0}
 --- !u!1 &1835840258508759493
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833001126653824675}
   - component: {fileID: 1979414672706253143}
+  - component: {fileID: 8280557099025019525}
   m_Layer: 8
   m_Name: a0r
   m_TagString: Untagged
@@ -529,7 +507,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &1979414672706253143
 WheelCollider:
@@ -561,6 +539,24 @@ WheelCollider:
     m_AsymptoteValue: 3
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!114 &8280557099025019525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835840258508759493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1407b185110d54bac1966335d00a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheel: {fileID: 0}
+  startSlipValue: 0.55
+  receivingPower: 0
+  receivingTurnInput: 0
+  rpmSensorWheel: 0
+  wheelShapePrefab: {fileID: 0}
 --- !u!1 &1835961527687544895
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833280454785092345}
   - component: {fileID: 1979459511473722889}
+  - component: {fileID: 1485973797255873226}
   m_Layer: 8
   m_Name: a0l
   m_TagString: Untagged
@@ -620,7 +617,7 @@ Transform:
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &1979459511473722889
 WheelCollider:
@@ -652,6 +649,24 @@ WheelCollider:
     m_AsymptoteValue: 3
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!114 &1485973797255873226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836117938255444933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1407b185110d54bac1966335d00a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wheel: {fileID: 0}
+  startSlipValue: 0.55
+  receivingPower: 0
+  receivingTurnInput: 0
+  rpmSensorWheel: 0
+  wheelShapePrefab: {fileID: 0}
 --- !u!1 &1836176522526220113
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +698,7 @@ Transform:
   - {fileID: 1833364245998625407}
   - {fileID: 1833074156821670835}
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1837228958212346671
 GameObject:
@@ -716,7 +731,7 @@ Transform:
   m_LocalScale: {x: 80.582954, y: 67.013626, z: 75.52909}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1837228958212346675
 MeshFilter:
@@ -810,7 +825,7 @@ Transform:
   m_LocalScale: {x: 1.0401042, y: 1, z: 1.0268072}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1837228958239010329
 Light:
@@ -901,7 +916,7 @@ Transform:
   m_LocalScale: {x: 1.0401042, y: 1, z: 1.0268072}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &3724774775725557159
 Light:

@@ -13,13 +13,14 @@ public enum DriveType
 public class WheelDrive : MonoBehaviour
 {
     [Tooltip("Maximum steering angle of the wheels")]
-	public float maxAngle = 30f;
+    public float maxAngle = 30f;
     public float currentAngle = 0f;
     public float steerSmooth;
     private float baseSteerSmooth = 0.1f;
     private float steerVelocity = 0.0F;
+
     [Tooltip("Maximum torque applied to the driving wheels")]
-	public float maxTorque = 300f;
+	public float maxTorque = 1000f;
 	[Tooltip("Maximum brake torque applied to the driving wheels")]
 	public float brakeTorque = 30000f;
     public float handbrakeTorque = 50000f;
@@ -60,7 +61,7 @@ public class WheelDrive : MonoBehaviour
     private WheelCollider[] m_Wheels;
     public Player controller;
     // Find all the WheelColliders down in the hierarchy.
-	void Start()
+    void Start()
     {
         controller = ReInput.players.GetPlayer(0);
         Mathf.Clamp(gear, 0, 5);
