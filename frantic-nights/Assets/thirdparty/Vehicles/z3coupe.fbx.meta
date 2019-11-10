@@ -1,0 +1,174 @@
+fileFormatVersion: 2
+guid: 3c41b0ffbaf510f4ba5152fa94581cad
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: back1
+    100002: back2
+    100004: Body
+    100006: Body1
+    100008: Body2
+    100010: Body3
+    100012: Body3Shape
+    100014: imagePlane1
+    100016: imagePlane2
+    100018: imagePlane3
+    100020: imagePlane4
+    100022: pPipe1
+    100024: pPipe2
+    100026: transform1
+    100028: transform2
+    100030: transform3
+    100032: transform4
+    100034: WheelBL
+    100036: WheelBR
+    100038: WheelBR 1
+    100040: WheelFL2
+    100042: WheelFR
+    100044: //RootNode
+    400000: back1
+    400002: back2
+    400004: Body
+    400006: Body1
+    400008: Body2
+    400010: Body3
+    400012: Body3Shape
+    400014: imagePlane1
+    400016: imagePlane2
+    400018: imagePlane3
+    400020: imagePlane4
+    400022: pPipe1
+    400024: pPipe2
+    400026: transform1
+    400028: transform2
+    400030: transform3
+    400032: transform4
+    400034: WheelBL
+    400036: WheelBR
+    400038: WheelBR 1
+    400040: WheelFL2
+    400042: WheelFR
+    400044: //RootNode
+    2300000: Body3Shape
+    2300002: pPipe1
+    2300004: pPipe2
+    2300006: WheelBL
+    2300008: WheelBR 1
+    3300000: Body3Shape
+    3300002: pPipe1
+    3300004: pPipe2
+    3300006: WheelBL
+    3300008: WheelBR 1
+    4300000: pPipe1
+    4300002: pPipe2
+    4300004: WheelBL
+    4300006: WheelBR
+    4300008: Body3Shape
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black
+    second: {fileID: 2100000, guid: caab430fb2508dc44976186725b777ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GunMetal
+    second: {fileID: 2100000, guid: 5f4c20c12e05f3b42820813aaeb47c9c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red
+    second: {fileID: 2100000, guid: dee70b1eaf28bd14c919d72c10baef59, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: White
+    second: {fileID: 2100000, guid: 87aa1cb452a51bd4aa23109b2af5d538, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
