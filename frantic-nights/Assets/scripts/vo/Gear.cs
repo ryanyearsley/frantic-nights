@@ -5,7 +5,6 @@ using UnityEngine;
 public class Gear : MonoBehaviour
 {
     public AnimationCurve torqueCurve;
-    public string gearName;
     public int topSpeed;
     public bool isReverse;
 }

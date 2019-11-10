@@ -7,35 +7,44 @@ using Rewired;
 public class VehicleController : MonoBehaviour
 {
     VehicleUIController vehicleUIController;
+    private PhysicsController physicsController;
 
     private Rigidbody rb;
 
+
+    public VehicleWheelMessage currentVehicle;
+
     //currents
+    [SerializeField]
     private int currentGear;
+    [SerializeField]
     private float currentSpeed;
+    [SerializeField]
     private float currentTorque;
+    [SerializeField]
+    private float currentEngineRpm;
+    [SerializeField]
     private float currentBrake;
+    [SerializeField]
     public float currentSteeringAngle = 0f;
+
     private int currentFrontWheelRpm;
     private int currentRearWheelRpm;
 
+    //Maximums
+    public float maxTorque = 3000f;
+    public float maxEngineRpm = 7000f;
+    public float maxBrakeTorque = 3000f;
+    public float maxHandbrakeTorque = 10000f;
+    public float maxSteeringAngle = 30f;
+
     //Steering
-    [Tooltip("Maximum steering angle of the wheels")]
-    public float maxAngle = 30f;
     public float steerSmooth = 0.1f;
     private float baseSteerSmooth = 0.1f;
-    private float steerVelocity = 0.0F;
+    private float steerVelocity = 0.1f;
 
     //Engine
-    [Tooltip("Maximum torque applied to the driving wheels")]
-    public float maxTorque = 1000f;
-    public float accelTest;
     public bool isRedlined = false;
-
-    //Braking
-    [Tooltip("Maximum brake torque applied to the driving wheels")]
-    public float brakeTorque = 30000f;
-    public float handbrakeTorque = 50000f;
 
     //Wheels
     private WheelCollider[] wheelColliders;
@@ -45,15 +54,16 @@ public class VehicleController : MonoBehaviour
     //Transmission
     [Tooltip("The vehicle's drive type: rear-wheels drive, front-wheels drive or all-wheels drive.")]
     public DriveType driveType;
-    public AnimationCurve[] torqueCurves;
+    public Gear[] gears;
     public bool isReverse;
-    public int[] topSpeed;
+
+    //Wheel Physics Sub-steps
     [Tooltip("The vehicle's speed when the physics engine can use different amount of sub-steps (in m/s).")]
-    public float criticalSpeed = 5f;
+    private float criticalSpeed = 5f;
     [Tooltip("Simulation sub-steps when the speed is above critical.")]
-    public int stepsBelow = 5;
+    private int stepsBelow = 5;
     [Tooltip("Simulation sub-steps when the speed is below critical.")]
-    public int stepsAbove = 1;
+    private int stepsAbove = 1;
 
     //Visual
     [Tooltip("If you need the visual wheels to be attached automatically, drag the wheel shape here.")]
@@ -62,6 +72,7 @@ public class VehicleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        physicsController = GetComponent<PhysicsController>();
         vehicleUIController = GetComponent<VehicleUIController>();
         rb = GetComponent<Rigidbody>();
         baseSteerSmooth = steerSmooth;
@@ -81,9 +92,15 @@ public class VehicleController : MonoBehaviour
             }
         }
     }
-    public void updateVehicle()
+    public void updateVehicle(PlayerInputs pi)
     {
-        vehicleUIController.updateUI(currentSpeed, accelTest);
+        if (pi.gearUpButtonDown && currentGear < gears.Length - 1)
+            changeGear(1);
+
+        else if (pi.gearDownButtonDown && currentGear > 0)
+            changeGear(-1);
+
+        vehicleUIController.updateUI(currentSpeed, currentEngineRpm);
         foreach (WheelController wheelController in wheelControllers)
         {
             wheelController.generateSkidmarks(rb.velocity, rb.velocity.magnitude);
@@ -93,43 +110,57 @@ public class VehicleController : MonoBehaviour
 
     public void fixedUpdateVehicle(PlayerInputs pi)
     {
-        if (pi.gearUpButtonDown && currentGear < topSpeed.Length - 1)
-            currentGear++;
-
-        else if (pi.gearDownButtonDown && currentGear > 0)
-            currentGear--;
-
-        vehicleUIController.updateGearUI(currentGear, accelTest);
-
+        
 
         VehicleWheelMessage vehicleWheelMessage = calculateVehiclePhysics(pi);
         foreach (WheelController wheelController in wheelControllers)
         {
-            wheelController.fixedUpdateWheelPhysics(vehicleWheelMessage);
+            wheelController.fixedUpdateWheelPhysics(pi, vehicleWheelMessage);
             wheelController.wheel.ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
         }
+        physicsController.fixedUpdatePhysics(pi, vehicleWheelMessage);
+    }
+
+    private void changeGear(int gearChangeDir)
+    {
+        currentGear += gearChangeDir;
+        vehicleUIController.updateGearUI(currentGear, currentEngineRpm);
     }
 
     private VehicleWheelMessage calculateVehiclePhysics(PlayerInputs pi)
     {
-        float inputAngle = maxAngle * pi.steeringInput;
+        float inputAngle = maxSteeringAngle * pi.steeringInput;
         steerSmooth = baseSteerSmooth + (currentSpeed * 0.0008f);
         currentSteeringAngle = Mathf.SmoothDamp(currentSteeringAngle, inputAngle, ref steerVelocity, steerSmooth);
 
 
+        //km/h
         currentSpeed = rb.velocity.magnitude * 3.6f;
-        currentTorque = (torqueCurves[currentGear].Evaluate(currentSpeed / topSpeed[currentGear]));
-        accelTest = (currentSpeed / topSpeed[currentGear]);
-        currentTorque = pi.accelInput * (maxTorque * currentTorque);
+        float speedPercentageToGearMax = currentSpeed / gears[currentGear].topSpeed;
+        if (speedPercentageToGearMax > 1)
+        {
+            isRedlined = true;
+        }
+        else
+            isRedlined = false;
+        float gearEvaluation = (gears[currentGear].torqueCurve.Evaluate(speedPercentageToGearMax));
+        //print("Gear eval: " + gearEvaluation);
+        currentTorque = pi.accelInput * (maxTorque * gearEvaluation);
 
+        //for UI use only
+        currentEngineRpm = (speedPercentageToGearMax * maxEngineRpm) + 500;
+
+        return generateVehicleMessage();
+    }
+
+    private VehicleWheelMessage generateVehicleMessage()
+    {
 
         VehicleWheelMessage vwm = new VehicleWheelMessage();
+        vwm.currentSpeed = currentSpeed;
         vwm.currentAngle = currentSteeringAngle;
         vwm.currentTorque = currentTorque;
-        vwm.currentBrake = pi.brakeInput;
-        vwm.isHandbraking = pi.handBrakeButton;
         vwm.isRedlined = isRedlined;
         return vwm;
-
     }
 }

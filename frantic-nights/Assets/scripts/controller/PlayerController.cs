@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public PlayerInputs currentInput;
 
     private VehicleController vehicleController;
-    private PhysicsController physicsController;
     public Player player;
 
     // Start is called before the first frame update
@@ -17,7 +16,6 @@ public class PlayerController : MonoBehaviour
     {
         player = ReInput.players.GetPlayer(0);
         vehicleController = GetComponent<VehicleController>();
-        physicsController = GetComponent<PhysicsController>();
     }
 
     private void FixedUpdate()
@@ -35,18 +33,16 @@ public class PlayerController : MonoBehaviour
         currentInput.gearUpButtonDown = player.GetButtonDown("GearUp");
         currentInput.gearDownButtonDown = player.GetButtonDown("GearDown");
         currentInput.handBrakeButton = player.GetButton("Handbrake");
-
         currentInput.pitchInput = player.GetAxis("Pitch");
         currentInput.rollInput = player.GetAxis("Roll");
         currentInput.yawInput = player.GetAxis("Steering");
 
         vehicleController.fixedUpdateVehicle(currentInput);
-        physicsController.fixedUpdatePhysics(currentInput);
     }
 
     // Update is called once per frame
     void Update()
     {
-        vehicleController.updateVehicle();
+        vehicleController.updateVehicle(currentInput);
     }
 }

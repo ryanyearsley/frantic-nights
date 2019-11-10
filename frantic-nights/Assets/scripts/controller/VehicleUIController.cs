@@ -10,12 +10,21 @@ public class VehicleUIController : MonoBehaviour
     public Text kphDisplay;
     public Text debugDisplay;
     public RectTransform tachNeedle;
-    public float idleTachAngle;
-    public float redlineTachAngle;
-    // Start is called before the first frame update
+
+    private float currentTachAngle = 0f;
+    //Z-rot of UI tachNeedle element at 0 RPM
+    private float idleTachAngle = 27.38f;
+    //Z-rot of UI tachNeedle element at 9000 RPM (Redline)
+    private float redlineTachAngle = -246.84f;
+
+    private float tachRotPerRPM = 32.8f;
+
+    //274.2 degrees between 0-9k
+    //  9,000  /       -274.2    =            -32.8
+    // redline /  tach range rot = tach rotation degree per RPM
     void Start()
     {
-
+        //tachRotPerRPM = (redlineTachAngle - idleTachAngle) / 9000;
     }
     public void updateGearUI(int gear, float accelTest)
     {
@@ -23,14 +32,12 @@ public class VehicleUIController : MonoBehaviour
             gearDisplay.text = "R";
         else
             gearDisplay.text = gear.ToString();
-
-        tachNeedle.rotation = Quaternion.Euler(180, 0, accelTest * 200f);
     }
 
     public void updateUI(float currentSpeed, float currentRpm)
     {
         kphDisplay.text = Mathf.RoundToInt(currentSpeed) + " k/h";
-
-        tachNeedle.rotation = Quaternion.Euler(180, 0, currentRpm * 200f);
+        debugDisplay.text = currentRpm.ToString();
+        tachNeedle.rotation = Quaternion.Euler(180, 0, currentRpm / tachRotPerRPM);
     }
 }

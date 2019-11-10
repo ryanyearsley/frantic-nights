@@ -53,7 +53,7 @@ public class WheelController : MonoBehaviour
                 break;
         }
     }
-    public void fixedUpdateWheelPhysics(VehicleWheelMessage vehicleWheelMessage) 
+    public void fixedUpdateWheelPhysics(PlayerInputs pi, VehicleWheelMessage vehicleWheelMessage) 
     {
         //turn
         if (receivingTurnInput)
@@ -62,7 +62,7 @@ public class WheelController : MonoBehaviour
         }
 
         //power
-        if (receivingPower && vehicleWheelMessage.isRedlined)
+        if (receivingPower && !vehicleWheelMessage.isRedlined)
         {
             wheel.motorTorque = vehicleWheelMessage.currentTorque;
         }
@@ -70,8 +70,8 @@ public class WheelController : MonoBehaviour
             wheel.motorTorque = 0;
 
         //braking
-        wheel.brakeTorque = vehicleWheelMessage.currentBrake;
-        if (!receivingTurnInput && vehicleWheelMessage.isHandbraking)
+        wheel.brakeTorque = pi.brakeInput;
+        if (!receivingTurnInput && pi.handBrakeButton)
             wheel.brakeTorque = 10000f;
     }
 

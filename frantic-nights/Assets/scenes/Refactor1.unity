@@ -757,13 +757,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 500919739}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.83465683, w: -0.55077034}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.96457684, y: 0.03508683, z: 1}
   m_Children: []
   m_Father: {fileID: 698898175}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -246.84}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -19.225456, y: -304.4}
@@ -1346,7 +1346,7 @@ PrefabInstance:
     - target: {fileID: 4329319500988261713, guid: e17beb3ca11fe504497a0d5410dca02b,
         type: 3}
       propertyPath: _userData.configVars.updateLoop
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4329319500988261713, guid: e17beb3ca11fe504497a0d5410dca02b,
         type: 3}
@@ -2536,36 +2536,6 @@ Transform:
   m_Father: {fileID: 1946867142}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1380793479
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1380793480}
-  m_Layer: 8
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1380793480
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1380793479}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1811553097802057}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392776788
 GameObject:
   m_ObjectHideFlags: 0
@@ -2962,15 +2932,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948670393}
   m_CullTransparentMesh: 0
+--- !u!1 &2007498474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2007498475}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2007498475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007498474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.008827, y: 47.543854, z: -25.241135}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1811553097802056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1835579248130355881, guid: 71dd2cff5771c0c40af943ee584ef0af,
-    type: 3}
-  m_PrefabInstance: {fileID: 1837228957703967713}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1811553097802057 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1833165061481859005, guid: 71dd2cff5771c0c40af943ee584ef0af,
     type: 3}
   m_PrefabInstance: {fileID: 1837228957703967713}
   m_PrefabAsset: {fileID: 0}
@@ -3059,152 +3053,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1795302075256672785, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: gearDisplay
-      value: 
-      objectReference: {fileID: 89192213}
-    - target: {fileID: 1795302075256672785, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: kphDisplay
-      value: 
-      objectReference: {fileID: 458940758}
-    - target: {fileID: 1795302075256672785, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: debugDisplay
-      value: 
-      objectReference: {fileID: 1948670396}
-    - target: {fileID: 1795302075256672785, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: tachNeedle
-      value: 
-      objectReference: {fileID: 500919740}
-    - target: {fileID: 1833187599397560609, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1833280454785092345, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1833001126653824675, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1833049172327683701, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1832807620930543659, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837228958212346670, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1837228958239010326, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2707285956822078524, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[0].value
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[0].outWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[1].inWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[0].m_Curve.Array.data[1].value
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: wheelShape
-      value: 
-      objectReference: {fileID: 1905918231147756, guid: c6973c2cc182ff4498ac1122193d41c2,
-        type: 3}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: maxTorque
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[1].m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[1].m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[1].m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[1].m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[1].m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4860716678596921745, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: torqueCurves.Array.data[1].m_Curve.Array.data[1].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8329558973395847157, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 640682418827972608, guid: 71dd2cff5771c0c40af943ee584ef0af,
         type: 3}
       propertyPath: gearDisplay
@@ -3225,11 +3073,6 @@ PrefabInstance:
       propertyPath: tachNeedle
       value: 
       objectReference: {fileID: 500919740}
-    - target: {fileID: 1181120686740804103, guid: 71dd2cff5771c0c40af943ee584ef0af,
-        type: 3}
-      propertyPath: pushSpeed
-      value: 10000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71dd2cff5771c0c40af943ee584ef0af, type: 3}
 --- !u!1001 &3775311866354253455

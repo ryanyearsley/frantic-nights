@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     //UI
-    [Range(0, 5)]
-    public int gear;
     public Text gearDisplay;
     public Text kphDisplay;
     public Text debugDisplay;
