@@ -44,9 +44,14 @@ public class MenuManager : MonoBehaviour
     }
 
     //Load Level Button Events
-    public void loadLevelFreeRoam()
+    public void loadLevelAfterburners()
     {
-        SceneManager.LoadScene("GroundVehicleDemo 2");
+        SceneManager.LoadScene("Afterburners");
+    }
+
+    public void loadLevelRefactor1()
+    {
+        SceneManager.LoadScene("Refactor1");
     }
 
 
