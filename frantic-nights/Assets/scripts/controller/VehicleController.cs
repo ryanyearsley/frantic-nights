@@ -29,6 +29,7 @@ public class VehicleController : MonoBehaviour
     [SerializeField]
     public float currentSteeringAngle = 0f;
 
+    private bool isShifting;
     private int currentFrontWheelRpm;
     private int currentRearWheelRpm;
 
@@ -58,6 +59,7 @@ public class VehicleController : MonoBehaviour
     public DriveType driveType;
     public Gear[] gears;
     public bool isReverse;
+    public float shiftTime = 0.1f;
 
     //Wheel Physics Sub-steps
     [Tooltip("The vehicle's speed when the physics engine can use different amount of sub-steps (in m/s).")]
@@ -98,11 +100,7 @@ public class VehicleController : MonoBehaviour
     }
     public void updateVehicle(PlayerInputs pi)
     {
-        if (pi.gearUpButtonDown && currentGear < gears.Length - 1)
-            changeGear(1);
-
-        else if (pi.gearDownButtonDown && currentGear > 0)
-            changeGear(-1);
+        
 
         vehicleUIController.updateUI(currentSpeed, currentEngineRpm);
         foreach (WheelController wheelController in wheelControllers)
@@ -116,7 +114,14 @@ public class VehicleController : MonoBehaviour
 
     public void fixedUpdateVehicle(PlayerInputs pi)
     {
-        
+        if (!isShifting)
+        {
+            if (pi.gearUpButtonDown && currentGear < gears.Length - 1)
+                StartCoroutine(changeGear(1));
+
+            else if (pi.gearDownButtonDown && currentGear > 0)
+                StartCoroutine(changeGear(-1));
+        }
 
         VehicleWheelMessage vehicleWheelMessage = calculateVehiclePhysics(pi);
         foreach (WheelController wheelController in wheelControllers)
@@ -127,11 +132,15 @@ public class VehicleController : MonoBehaviour
         physicsController.fixedUpdatePhysics(pi, vehicleWheelMessage);
     }
 
-    private void changeGear(int gearChangeDir)
+    private IEnumerator changeGear(int gearChangeDir)
     {
+        isShifting = true;
+        yield return new WaitForSeconds(shiftTime);
         currentGear += gearChangeDir;
         vehicleUIController.updateGearUI(currentGear, currentEngineRpm);
+        isShifting = false;
     }
+
 
     private VehicleWheelMessage calculateVehiclePhysics(PlayerInputs pi)
     {
