@@ -7,6 +7,7 @@ public class PhysicsController : MonoBehaviour
     //Physics
     [SerializeField]
     private bool isGrounded;
+    public Transform trans;
     public Rigidbody rb;
     public Vector3 centerOfMass;
     public int airFloat;
@@ -17,6 +18,8 @@ public class PhysicsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        trans = transform.parent;
+        rb = trans.GetComponent<Rigidbody>();
         rb.centerOfMass = centerOfMass;
     }
 

@@ -6,6 +6,7 @@ using Rewired;
 
 public class VehicleController : MonoBehaviour
 {
+    VehicleAudioController audioController;
     VehicleUIController vehicleUIController;
     private PhysicsController physicsController;
 
@@ -49,6 +50,7 @@ public class VehicleController : MonoBehaviour
     //Wheels
     private WheelCollider[] wheelColliders;
     private WheelController[] wheelControllers;
+    public float startSlipValue = .35f;
 
 
     //Transmission
@@ -72,8 +74,9 @@ public class VehicleController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        physicsController = GetComponent<PhysicsController>();
-        vehicleUIController = GetComponent<VehicleUIController>();
+        audioController = GetComponentInChildren<VehicleAudioController>();
+        physicsController = GetComponentInChildren<PhysicsController>();
+        vehicleUIController = GetComponentInChildren<VehicleUIController>();
         rb = GetComponent<Rigidbody>();
         baseSteerSmooth = steerSmooth;
         Mathf.Clamp(currentGear, 0, 5);
@@ -83,6 +86,7 @@ public class VehicleController : MonoBehaviour
 
         foreach (WheelController wheelController in wheelControllers)
         {
+            print("Wheel " + wheelController.gameObject.name);
             wheelController.initializeWheel(driveType);
             // Create wheel shapes only when needed.
             if (wheelShape != null)
@@ -106,6 +110,8 @@ public class VehicleController : MonoBehaviour
             wheelController.generateSkidmarks(rb.velocity, rb.velocity.magnitude);
             wheelController.calculateWheelMeshPositions();
         }
+
+        audioController.updateVehicleAudio(currentEngineRpm, pi.accelInput);
     }
 
     public void fixedUpdateVehicle(PlayerInputs pi)

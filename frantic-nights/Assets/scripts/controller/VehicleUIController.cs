@@ -19,6 +19,8 @@ public class VehicleUIController : MonoBehaviour
 
     private float tachRotPerRPM = 32.8f;
 
+    private float tachOffsetRot = 27.772f;
+
     //274.2 degrees between 0-9k
     //  9,000  /       -274.2    =            -32.8
     // redline /  tach range rot = tach rotation degree per RPM
@@ -38,6 +40,6 @@ public class VehicleUIController : MonoBehaviour
     {
         kphDisplay.text = Mathf.RoundToInt(currentSpeed) + " k/h";
         debugDisplay.text = currentRpm.ToString();
-        tachNeedle.rotation = Quaternion.Euler(180, 0, currentRpm / tachRotPerRPM);
+        tachNeedle.rotation = Quaternion.Euler(180, 0, (currentRpm / tachRotPerRPM) - tachOffsetRot);
     }
 }
