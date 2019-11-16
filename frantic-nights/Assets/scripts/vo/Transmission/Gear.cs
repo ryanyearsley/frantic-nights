@@ -6,5 +6,6 @@ public class Gear : MonoBehaviour
 {
     public AnimationCurve torqueCurve;
     public int topSpeed;
+    public float topWheelRpm;
     public bool isReverse;
 }

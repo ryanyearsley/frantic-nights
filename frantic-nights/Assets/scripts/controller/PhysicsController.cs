@@ -7,9 +7,11 @@ public class PhysicsController : MonoBehaviour
     //Physics
     [SerializeField]
     private bool isGrounded;
+    public Transform trans;
     public Rigidbody rb;
     public Vector3 centerOfMass;
     public int airFloat;
+    public int downforce;
     public int pushSpeed;
     public int yawSpeed;
     public int rotSpeed;
@@ -17,6 +19,8 @@ public class PhysicsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        trans = transform.parent;
+        rb = trans.GetComponent<Rigidbody>();
         rb.centerOfMass = centerOfMass;
     }
 
@@ -38,6 +42,7 @@ public class PhysicsController : MonoBehaviour
                 yawSpeedGoverner = 0;
 
             rb.AddRelativeTorque(Vector3.up * playerInputs.steeringInput * yawSpeed * yawSpeedGoverner);
+            rb.AddRelativeForce(Vector3.down * downforce);
         }
         //handbrake yaw power change
         if (playerInputs.handBrakeButton)

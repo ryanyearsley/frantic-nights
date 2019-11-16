@@ -6,19 +6,23 @@ public class WheelController : MonoBehaviour
 {
     public WheelCollider wheel;
     private RCC_Skidmarks skidmarks;
-    private float totalSlip;
-    public float startSlipValue = .55f;
+    private float currentSlip;
+    public float startSlipValue = .35f;
     private int lastSkidmark = -1;
     public bool receivingPower = false;
     public bool receivingTurnInput = false;
     public bool rpmSensorWheel = false;
     public GameObject wheelShapePrefab;
     private GameObject wheelShape;
+    [SerializeField]
+    private AudioSource tireAudioSource;
+
 
     private void Start()
     {
         wheel = gameObject.GetComponent<WheelCollider>();
         skidmarks = GameObject.FindObjectOfType(typeof(RCC_Skidmarks)) as RCC_Skidmarks;
+        tireAudioSource = GetComponent<AudioSource>();
     }
 
     public void initializeWheel(DriveType driveType)
@@ -53,12 +57,18 @@ public class WheelController : MonoBehaviour
                 break;
         }
     }
-    public void fixedUpdateWheelPhysics(PlayerInputs pi, VehicleWheelMessage vehicleWheelMessage) 
+    public WheelVehicleMessage fixedUpdateWheelPhysics(PlayerInputs pi, VehicleWheelMessage vehicleWheelMessage)
     {
+        WheelVehicleMessage wheelVehicleMessage = new WheelVehicleMessage();
         //turn
         if (receivingTurnInput)
         {
             wheel.steerAngle = vehicleWheelMessage.currentAngle;
+            wheelVehicleMessage.frontWheelRpm = wheel.rpm;
+        }
+        else
+        {
+            wheelVehicleMessage.rearWheelRpm = wheel.rpm;
         }
 
         //power
@@ -70,9 +80,11 @@ public class WheelController : MonoBehaviour
             wheel.motorTorque = 0;
 
         //braking
-        wheel.brakeTorque = pi.brakeInput;
+        wheel.brakeTorque = vehicleWheelMessage.currentBrake;
         if (!receivingTurnInput && pi.handBrakeButton)
             wheel.brakeTorque = 10000f;
+
+        return wheelVehicleMessage;
     }
 
     public void calculateWheelMeshPositions()
@@ -97,7 +109,7 @@ public class WheelController : MonoBehaviour
         float wheelSlipAmountForward = Mathf.Abs(GroundHit.forwardSlip);
         float wheelSlipAmountSideways = Mathf.Abs(GroundHit.sidewaysSlip);
 
-        totalSlip = Mathf.Lerp(totalSlip, (wheelSlipAmountSideways + wheelSlipAmountForward), Time.fixedDeltaTime * 3f) / 1f;
+        currentSlip = Mathf.Lerp(currentSlip, (wheelSlipAmountSideways + wheelSlipAmountForward), Time.fixedDeltaTime * 3f) / 1f;
 
         // If scene has skidmarks manager...
         if (skidmarks)
@@ -109,7 +121,7 @@ public class WheelController : MonoBehaviour
                 Vector3 skidPoint = GroundHit.point + 2f * (velocity) * Time.deltaTime;
 
                 if (magnitude > 1f)
-                    lastSkidmark = skidmarks.AddSkidMark(skidPoint, GroundHit.normal, totalSlip, lastSkidmark);
+                    lastSkidmark = skidmarks.AddSkidMark(skidPoint, GroundHit.normal, currentSlip, lastSkidmark);
                 else
                     lastSkidmark = -1;
 
@@ -121,6 +133,28 @@ public class WheelController : MonoBehaviour
 
         }
 
+        tireAudio();
+
     }
+
+    private void tireAudio() {
+        if (currentSlip > startSlipValue) {
+            if (!tireAudioSource.isPlaying)
+                tireAudioSource.Play();
+            tireAudioSource.volume = Mathf.Lerp(0f, 0.5f, currentSlip - 0);
+            tireAudioSource.pitch = Mathf.Lerp(1f, .8f, tireAudioSource.volume);
+        }
+        else{
+        tireAudioSource.volume = 0f;
+            if (tireAudioSource.volume <= .05f && tireAudioSource.isPlaying)
+            tireAudioSource.Stop();
+        }
+    }
+}
+
+public class WheelVehicleMessage
+{
+    public float frontWheelRpm;
+    public float rearWheelRpm;
 
 }
