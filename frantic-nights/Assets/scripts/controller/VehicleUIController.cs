@@ -11,6 +11,7 @@ public class VehicleUIController : MonoBehaviour
     public Text debugDisplay;
     public RectTransform tachNeedle;
 
+    [Range(-127, 28)]
     private float currentTachAngle = 0f;
     //Z-rot of UI tachNeedle element at 0 RPM
     private float idleTachAngle = 27.38f;
@@ -18,6 +19,8 @@ public class VehicleUIController : MonoBehaviour
     private float redlineTachAngle = -246.84f;
 
     private float tachRotPerRPM = 32.8f;
+
+    private float tachOffsetRot = 27.772f;
 
     //274.2 degrees between 0-9k
     //  9,000  /       -274.2    =            -32.8
@@ -38,6 +41,8 @@ public class VehicleUIController : MonoBehaviour
     {
         kphDisplay.text = Mathf.RoundToInt(currentSpeed) + " k/h";
         debugDisplay.text = currentRpm.ToString();
-        tachNeedle.rotation = Quaternion.Euler(180, 0, currentRpm / tachRotPerRPM);
+        currentTachAngle = (currentRpm / tachRotPerRPM) - tachOffsetRot;
+        Mathf.Clamp(currentTachAngle, redlineTachAngle, idleTachAngle);
+        tachNeedle.rotation = Quaternion.Euler(180, 0, currentTachAngle);
     }
 }
