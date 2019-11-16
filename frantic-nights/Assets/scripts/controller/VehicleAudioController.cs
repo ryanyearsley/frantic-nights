@@ -9,7 +9,7 @@ public class VehicleAudioController : MonoBehaviour
 
     public AudioClip engineClipHigh;
 
-    private float maxEngineRpm;
+    private float maxEngineRpm = 8000f;
 
     private List<AudioSource> tireAudioSources = new List<AudioSource>();
 

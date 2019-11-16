@@ -57,12 +57,18 @@ public class WheelController : MonoBehaviour
                 break;
         }
     }
-    public void fixedUpdateWheelPhysics(PlayerInputs pi, VehicleWheelMessage vehicleWheelMessage) 
+    public WheelVehicleMessage fixedUpdateWheelPhysics(PlayerInputs pi, VehicleWheelMessage vehicleWheelMessage)
     {
+        WheelVehicleMessage wheelVehicleMessage = new WheelVehicleMessage();
         //turn
         if (receivingTurnInput)
         {
             wheel.steerAngle = vehicleWheelMessage.currentAngle;
+            wheelVehicleMessage.frontWheelRpm = wheel.rpm;
+        }
+        else
+        {
+            wheelVehicleMessage.rearWheelRpm = wheel.rpm;
         }
 
         //power
@@ -74,9 +80,11 @@ public class WheelController : MonoBehaviour
             wheel.motorTorque = 0;
 
         //braking
-        wheel.brakeTorque = pi.brakeInput;
+        wheel.brakeTorque = vehicleWheelMessage.currentBrake;
         if (!receivingTurnInput && pi.handBrakeButton)
             wheel.brakeTorque = 10000f;
+
+        return wheelVehicleMessage;
     }
 
     public void calculateWheelMeshPositions()
@@ -142,4 +150,11 @@ public class WheelController : MonoBehaviour
             tireAudioSource.Stop();
         }
     }
+}
+
+public class WheelVehicleMessage
+{
+    public float frontWheelRpm;
+    public float rearWheelRpm;
+
 }

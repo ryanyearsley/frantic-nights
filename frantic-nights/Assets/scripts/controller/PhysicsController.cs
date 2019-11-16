@@ -11,6 +11,7 @@ public class PhysicsController : MonoBehaviour
     public Rigidbody rb;
     public Vector3 centerOfMass;
     public int airFloat;
+    public int downforce;
     public int pushSpeed;
     public int yawSpeed;
     public int rotSpeed;
@@ -41,6 +42,7 @@ public class PhysicsController : MonoBehaviour
                 yawSpeedGoverner = 0;
 
             rb.AddRelativeTorque(Vector3.up * playerInputs.steeringInput * yawSpeed * yawSpeedGoverner);
+            rb.AddRelativeForce(Vector3.down * downforce);
         }
         //handbrake yaw power change
         if (playerInputs.handBrakeButton)

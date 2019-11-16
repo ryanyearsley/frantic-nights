@@ -7,5 +7,6 @@ public class VehicleWheelMessage
     public float currentSpeed;
     public float currentAngle;
     public float currentTorque;
+    public float currentBrake;
     public bool isRedlined;
 }
