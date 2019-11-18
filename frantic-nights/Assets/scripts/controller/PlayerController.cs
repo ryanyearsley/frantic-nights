@@ -6,16 +6,25 @@ using Rewired;
 public class PlayerController : MonoBehaviour
 {
 
+
     public PlayerInputs currentInput;
 
     private VehicleController vehicleController;
     public Player player;
+
+    private Rigidbody rb;
+    private Vector3 startingLocation;
+    private Quaternion startingRotation;
 
     // Start is called before the first frame update
     void Start()
     {
         player = ReInput.players.GetPlayer(0);
         vehicleController = GetComponent<VehicleController>();
+        rb = GetComponent<Rigidbody>();
+        startingLocation = transform.position;
+        startingRotation = transform.rotation;
+
     }
 
     private void FixedUpdate()
@@ -44,5 +53,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         vehicleController.updateVehicle(currentInput);
+        if (player.GetButton("Reset"))
+        {
+            print("player reset");
+
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            transform.position = startingLocation;
+            transform.rotation = startingRotation;
+            rb.isKinematic = false;
+        }
     }
 }
