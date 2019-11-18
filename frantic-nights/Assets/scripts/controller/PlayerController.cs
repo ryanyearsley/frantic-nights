@@ -53,15 +53,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         vehicleController.updateVehicle(currentInput);
-        if (player.GetButton("Reset"))
+        if (player.GetButtonDown("Reset"))
         {
             print("player reset");
-
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            transform.position = startingLocation;
-            transform.rotation = startingRotation;
-            rb.isKinematic = false;
+            resetPlayer();
         }
+    }
+
+    public void resetPlayer()
+    {
+        vehicleController.resetVehicle(startingLocation, startingRotation);
     }
 }
