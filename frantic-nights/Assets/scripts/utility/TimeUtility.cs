@@ -6,6 +6,12 @@ using System.Runtime;
 
 public class TimeUtility : MonoBehaviour
 {
+    public static bool validateTime (LapTime attempt, int splitCount)
+    {
+        if (attempt.splitIndex == splitCount)
+            return true;
+        else return false;
+    }
 
     public static string convertFloatToTimeString(float inputTime)
     {
@@ -13,12 +19,21 @@ public class TimeUtility : MonoBehaviour
         return string.Format("{0:00}:{1:00}:{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds);
 
     }
-    public static float compareTimesForBest(List<float> allAttempts, float currentBestTime)
+    public static LapTime compareTimesForBest(List<LapTime> allAttempts, LapTime currentBestTime)
     {
-        float bestTime = currentBestTime;
-        foreach (float attempt in allAttempts)
+        LapTime bestTime = new LapTime();
+        if (currentBestTime != null)
         {
-            if (attempt < bestTime)
+            bestTime = currentBestTime;
+        }
+        else
+        {
+            bestTime.time = 600;
+        }
+        foreach (LapTime attempt in allAttempts)
+        {
+            float time = attempt.time;
+            if (time < bestTime.time)
             {
                 bestTime = attempt;
             }

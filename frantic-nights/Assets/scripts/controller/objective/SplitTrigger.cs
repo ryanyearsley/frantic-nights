@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeTrialTrigger : MonoBehaviour
+public class SplitTrigger : MonoBehaviour
 {
-    public bool isStart;
+    public int splitIndex;
     private TimedEventManager timeTrialManager;
 
     void Start()
@@ -17,13 +17,7 @@ public class TimeTrialTrigger : MonoBehaviour
         print("trigger hit: " + other.tag);
         if (other.tag == "Player")
         {
-            if (isStart)
-            {
-                GameManager.instance.resetObjective();
-                timeTrialManager.startAttempt();
-            }
-            else
-                timeTrialManager.endAttempt();
+            timeTrialManager.checkpoint(splitIndex);
         }
     }
 }
