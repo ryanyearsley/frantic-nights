@@ -43,15 +43,14 @@ public class MenuManager : MonoBehaviour
         setPanel(MenuState.levelSelect);
     }
 
-    //Load Level Button Events
-    public void loadLevelAfterburners()
+    public void loadLevelPointToPoint()
     {
-        SceneManager.LoadScene("Afterburners");
+        SceneManager.LoadScene("PointToPoint01");
     }
 
-    public void loadLevelRefactor1()
+    public void loadLevelHotLap()
     {
-        SceneManager.LoadScene("Refactor1");
+        SceneManager.LoadScene("HotLap01");
     }
 
 
