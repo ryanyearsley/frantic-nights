@@ -18,4 +18,7 @@ public class PlayerInputs : MonoBehaviour
     public float rollInput;
     public float yawInput;
 
+    //Misc
+    public bool slowMoButton;
+
 }

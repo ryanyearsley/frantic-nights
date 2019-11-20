@@ -6,22 +6,32 @@ using Rewired;
 public class PlayerController : MonoBehaviour
 {
 
+
     public PlayerInputs currentInput;
 
     private VehicleController vehicleController;
     public Player player;
+
+    private Rigidbody rb;
+    private Vector3 startingLocation;
+    private Quaternion startingRotation;
 
     // Start is called before the first frame update
     void Start()
     {
         player = ReInput.players.GetPlayer(0);
         vehicleController = GetComponent<VehicleController>();
+        rb = GetComponent<Rigidbody>();
+        startingLocation = transform.position;
+        startingRotation = transform.rotation;
+
     }
 
     private void FixedUpdate()
     {
         generatePlayerInputs();
         vehicleController.fixedUpdateVehicle(currentInput);
+        
     }
 
     private void generatePlayerInputs()
@@ -44,5 +54,23 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         vehicleController.updateVehicle(currentInput);
+        if (player.GetButtonDown("Reset"))
+        {
+            print("player reset");
+            resetPlayer();
+        }
+
+        if (player.GetButtonDown("ToggleControlsText"))
+        {
+            print("player controller toggle ctrls");
+            GameManager.instance.toggleControlsDisplay();
+        }
+
+
+    }
+
+    public void resetPlayer()
+    {
+        vehicleController.resetVehicle(startingLocation, startingRotation);
     }
 }

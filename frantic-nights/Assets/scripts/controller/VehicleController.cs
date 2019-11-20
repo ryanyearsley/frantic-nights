@@ -121,6 +121,16 @@ public class VehicleController : MonoBehaviour
             gear.topWheelRpm = topMeterPerMinute / wheelDiameter;
         }
     }
+
+    public void resetVehicle(Vector3 resetPosition, Quaternion resetLocation)
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        transform.position = resetPosition;
+        transform.rotation = resetLocation;
+        StartCoroutine(changeGear(1));
+    }
+
     public void updateVehicle(PlayerInputs pi)
     {
         
@@ -140,10 +150,10 @@ public class VehicleController : MonoBehaviour
         if (!isShifting)
         {
             if (pi.gearUpButtonDown && currentGear < gears.Length - 1)
-                StartCoroutine(changeGear(1));
+                StartCoroutine(changeGear(currentGear += 1));
 
             else if (pi.gearDownButtonDown && currentGear > 0)
-                StartCoroutine(changeGear(-1));
+                StartCoroutine(changeGear(currentGear -= 1));
         }
 
         VehicleWheelMessage vehicleWheelMessage = calculateVehiclePhysics(pi);
@@ -165,11 +175,11 @@ public class VehicleController : MonoBehaviour
         currentRearWheelRpm /= 2;
     }
 
-    private IEnumerator changeGear(int gearChangeDir)
+    private IEnumerator changeGear(int newGear)
     {
         isShifting = true;
         yield return new WaitForSeconds(shiftTime);
-        currentGear += gearChangeDir;
+         currentGear = newGear;
         vehicleUIController.updateGearUI(currentGear, currentEngineRpm);
         isShifting = false;
     }

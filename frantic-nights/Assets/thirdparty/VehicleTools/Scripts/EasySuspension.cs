@@ -49,7 +49,7 @@ public class EasySuspension : MonoBehaviour
 		}
 	}
 
-  
+  /*
     void OnGUI()
     {
         foreach (WheelCollider wc in GetComponentsInChildren<WheelCollider>()) {
@@ -60,5 +60,5 @@ public class EasySuspension : MonoBehaviour
         GUILayout.Label ("Mass: " + m_Rigidbody.mass);
         GUILayout.Label ("Center: " + m_Rigidbody.centerOfMass);
     }
-
+    */
 }
