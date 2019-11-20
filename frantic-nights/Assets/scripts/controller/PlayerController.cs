@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         generatePlayerInputs();
         vehicleController.fixedUpdateVehicle(currentInput);
+        
     }
 
     private void generatePlayerInputs()
@@ -53,15 +54,23 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         vehicleController.updateVehicle(currentInput);
-        if (player.GetButton("Reset"))
+        if (player.GetButtonDown("Reset"))
         {
             print("player reset");
-
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            transform.position = startingLocation;
-            transform.rotation = startingRotation;
-            rb.isKinematic = false;
+            resetPlayer();
         }
+
+        if (player.GetButtonDown("ToggleControlsText"))
+        {
+            print("player controller toggle ctrls");
+            GameManager.instance.toggleControlsDisplay();
+        }
+
+
+    }
+
+    public void resetPlayer()
+    {
+        vehicleController.resetVehicle(startingLocation, startingRotation);
     }
 }

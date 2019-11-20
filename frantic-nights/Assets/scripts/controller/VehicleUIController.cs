@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class VehicleUIController : MonoBehaviour
 {
+    public GameObject vehicleDashWidget;
+
     //UI
-    public Text gearDisplay;
-    public Text kphDisplay;
-    public Text debugDisplay;
-    public RectTransform tachNeedle;
+    private Text gearText;
+    private Text kphText;
+    private Text rpmText;
+    private RectTransform tachNeedle;
+
 
     [Range(-127, 28)]
     private float currentTachAngle = 0f;
@@ -22,27 +25,36 @@ public class VehicleUIController : MonoBehaviour
 
     private float tachOffsetRot = 27.772f;
 
+
     //274.2 degrees between 0-9k
     //  9,000  /       -274.2    =            -32.8
     // redline /  tach range rot = tach rotation degree per RPM
     void Start()
     {
         //tachRotPerRPM = (redlineTachAngle - idleTachAngle) / 9000;
+
+        GameObject widget = Instantiate(vehicleDashWidget, GameObject.FindObjectOfType<Canvas>().transform);
+        gearText = widget.transform.Find("gearText").gameObject.GetComponent<Text>();
+        kphText = widget.transform.Find("kphText").gameObject.GetComponent<Text>();
+        rpmText = widget.transform.Find("rpmText").gameObject.GetComponent<Text>();
+        tachNeedle = widget.transform.Find("tachNeedle").gameObject.GetComponent<RectTransform>();
+        
     }
     public void updateGearUI(int gear, float accelTest)
     {
         if (gear == 0)
-            gearDisplay.text = "R";
+            gearText.text = "R";
         else
-            gearDisplay.text = gear.ToString();
+            gearText.text = gear.ToString();
     }
 
     public void updateUI(float currentSpeed, float currentRpm)
     {
-        kphDisplay.text = Mathf.RoundToInt(currentSpeed) + " k/h";
-        debugDisplay.text = currentRpm.ToString();
+        kphText.text = Mathf.RoundToInt(currentSpeed) + " k/h";
+        rpmText.text = currentRpm.ToString();
         currentTachAngle = (currentRpm / tachRotPerRPM) - tachOffsetRot;
         Mathf.Clamp(currentTachAngle, redlineTachAngle, idleTachAngle);
         tachNeedle.rotation = Quaternion.Euler(180, 0, currentTachAngle);
     }
+
 }
