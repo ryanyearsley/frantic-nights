@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         generatePlayerInputs();
         vehicleController.fixedUpdateVehicle(currentInput);
+        
     }
 
     private void generatePlayerInputs()
@@ -58,6 +59,14 @@ public class PlayerController : MonoBehaviour
             print("player reset");
             resetPlayer();
         }
+
+        if (player.GetButtonDown("ToggleControlsText"))
+        {
+            print("player controller toggle ctrls");
+            GameManager.instance.toggleControlsDisplay();
+        }
+
+
     }
 
     public void resetPlayer()

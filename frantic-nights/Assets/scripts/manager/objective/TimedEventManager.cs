@@ -7,10 +7,14 @@ public class TimedEventManager : GameManager
 {
     //instantiates
     public GameObject timeWidget;
+    public GameObject splitUI;
 
     //static vars
     [SerializeField]
     public float timeToBeatSeconds;
+    public float goldTime;
+    public float silverTime;
+    public float bronzeTime;
     public static float defaultBestTimeSeconds = 600f; //always 15 mins
 
     //dynamic vars
@@ -30,6 +34,9 @@ public class TimedEventManager : GameManager
     private Text bestAttemptTxt;
     private Text lastAttemptTxt;
 
+    private List<Text> bestSplitsTexts = new List<Text>();
+    private List<Text> currentSplitsTexts = new List<Text>();
+
 
 
 
@@ -41,18 +48,48 @@ public class TimedEventManager : GameManager
         currentTimeTxt = widget.transform.Find("CurrentTime").gameObject.GetComponent<Text>();
         bestAttemptTxt = widget.transform.Find("BestAttempt").gameObject.GetComponent<Text>();
         lastAttemptTxt = widget.transform.Find("LastAttempt").gameObject.GetComponent<Text>();
+
+       
+
         timeToBeatTxt.text = TimeUtility.convertFloatToTimeString(timeToBeatSeconds);
         currentTimeTxt.text = "-";
         bestAttemptTxt.text = "-";
         lastAttemptTxt.text = "-";
+
         SplitTrigger[] splits = FindObjectsOfType<SplitTrigger>();
         print("splits: " + splits.Length);
         splitCount = splits.Length;
 
-    }
+        for (int i = 0; i < splitCount; i++)
+        {
+            GameObject go = Instantiate(splitUI, widget.transform);
 
-    void Update()
+            RectTransform rectTransform = go.GetComponent<RectTransform>();
+            rectTransform.position += new Vector3(0, (i *-25), 0);
+            bestSplitsTexts.Add(go.transform.Find("BestSplit").GetComponent<Text>());
+            currentSplitsTexts.Add(go.transform.Find("CurrentSplit").GetComponent<Text>());
+            go.transform.Find("SplitNumber").GetComponent<Text>().text = i.ToString();
+        }
+
+
+        disableUnusedSplits();
+    }
+    private void disableUnusedSplits()
     {
+       for (int i = 0; i < bestSplitsTexts.Count; i++)
+        {
+            if (i > splitCount)
+                bestSplitsTexts[i].enabled = false;
+        }
+        for (int i = 0; i < currentSplitsTexts.Count; i++)
+        {
+            if (i > splitCount)
+                currentSplitsTexts[i].enabled = false;
+        }
+    }
+    protected override void Update()
+    {
+        base.Update();
         if (runActive)
         {
             currentTimeSeconds += Time.deltaTime;
@@ -62,6 +99,7 @@ public class TimedEventManager : GameManager
 
     public void startAttempt()
     {
+        clearCurrentSplits();
         runActive = true;
         currentTimeSeconds = 0;
         currentAttempt = new LapTime();
@@ -89,18 +127,30 @@ public class TimedEventManager : GameManager
             allAttempts.Add(lastAttempt);
             if (lastAttempt.time < timeToBeatSeconds)
             {
-                transmitGameMessage("WINNER!", 3);
+                transmitGameMessage("WINNER!", "Press ALT + F4. \n ;)", 3);
             }
             else
                 transmitGameMessage("LOSER!", 3);
-            bestAttempt = TimeUtility.compareTimesForBest(allAttempts, bestAttempt);
-            bestAttemptTxt.text = TimeUtility.convertFloatToTimeString(bestAttempt.time);
+            if (bestAttempt == null)
+                updateBestAttempt(lastAttempt);
+            else if (lastAttempt.time < bestAttempt.time)
+            {
+                updateBestAttempt(lastAttempt);
+            }
+            //bestAttempt = TimeUtility.compareTimesForBest(allAttempts, bestAttempt);
         }
         else
         {
             transmitGameMessage("INVALID TIME!", 3);
         }
         return;
+    }
+
+    private void updateBestAttempt(LapTime newBestAttempt)
+    {
+        bestAttempt = lastAttempt;
+        bestAttemptTxt.text = TimeUtility.convertFloatToTimeString(bestAttempt.time);
+        updateBestSplits(lastAttempt);
     }
 
     //new lap
@@ -119,6 +169,39 @@ public class TimedEventManager : GameManager
             currentAttempt.splitIndex += 1;
         }
         currentAttempt.splits.Add(currentTimeSeconds);
+        updateCurrentSplit(currentAttempt.splitIndex, currentTimeSeconds);
+
+        //update splits UI
+    }
+    private void updateCurrentSplit(int splitIndex, float time)
+    {
+        Text currentSplitText = currentSplitsTexts[splitIndex - 1];
+        currentSplitText.text = TimeUtility.convertFloatToTimeString(time);
+        if (bestAttempt != null)
+        {
+            if (bestAttempt.splits[splitIndex - 1] < time)
+                currentSplitText.color = Color.red;
+            else
+                currentSplitText.color = Color.green;
+        }
+
+    }
+
+    private void updateBestSplits(LapTime lap)
+    {
+        for(int i = 0; i < lap.splits.Count; i++)
+        {
+        bestSplitsTexts[i].text = TimeUtility.convertFloatToTimeString(lap.splits[i]);
+        }
+    }
+
+    private void clearCurrentSplits()
+    {
+        for (int i = 0; i < currentSplitsTexts.Count; i++)
+        {
+            currentSplitsTexts[i].text = "-";
+            currentSplitsTexts[i].color = Color.black;
+        }
     }
 
 
