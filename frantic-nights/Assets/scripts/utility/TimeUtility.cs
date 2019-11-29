@@ -21,7 +21,9 @@ public class TimeUtility : MonoBehaviour
     }
     public static LapTime compareTimesForBest(List<LapTime> allAttempts, LapTime currentBestTime)
     {
-        LapTime bestTime = new LapTime();
+        allAttempts.Sort((x, y) => x.time.CompareTo(y.time));
+
+        LapTime bestTime = allAttempts[0];
         if (currentBestTime != null)
         {
             bestTime = currentBestTime;

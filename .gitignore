@@ -5,6 +5,9 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+# Asset Packages
+frantic-nights/Assets/thirdparty*
+
 # Visual Studio cache directory
 .vs/
 
@@ -34,3 +37,4 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*.meta

@@ -73,6 +73,7 @@ public class TimedEventManager : GameManager
 
 
         disableUnusedSplits();
+        clearCurrentSplits();
     }
     private void disableUnusedSplits()
     {
@@ -127,17 +128,15 @@ public class TimedEventManager : GameManager
             allAttempts.Add(lastAttempt);
             if (lastAttempt.time < timeToBeatSeconds)
             {
-                transmitGameMessage("WINNER!", "Press ALT + F4. \n ;)", 3);
+                transmitGameMessage("WINNER!", "Press F to pay respects.", 3);
             }
             else
                 transmitGameMessage("LOSER!", 3);
+
             if (bestAttempt == null)
                 updateBestAttempt(lastAttempt);
-            else if (lastAttempt.time < bestAttempt.time)
-            {
-                updateBestAttempt(lastAttempt);
-            }
-            //bestAttempt = TimeUtility.compareTimesForBest(allAttempts, bestAttempt);
+
+            updateBestAttempt(TimeUtility.compareTimesForBest(allAttempts, bestAttempt));
         }
         else
         {
@@ -148,9 +147,9 @@ public class TimedEventManager : GameManager
 
     private void updateBestAttempt(LapTime newBestAttempt)
     {
-        bestAttempt = lastAttempt;
+        bestAttempt = newBestAttempt;
         bestAttemptTxt.text = TimeUtility.convertFloatToTimeString(bestAttempt.time);
-        updateBestSplits(lastAttempt);
+        updateBestSplits(bestAttempt);
     }
 
     //new lap
@@ -200,7 +199,7 @@ public class TimedEventManager : GameManager
         for (int i = 0; i < currentSplitsTexts.Count; i++)
         {
             currentSplitsTexts[i].text = "-";
-            currentSplitsTexts[i].color = Color.black;
+            currentSplitsTexts[i].color = Color.white;
         }
     }
 
