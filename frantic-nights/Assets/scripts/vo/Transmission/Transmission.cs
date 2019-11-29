@@ -9,7 +9,5 @@ public class Transmission : ScriptableObject
     public DriveType driveType;
     public AnimationCurve[] torqueCurves;
     public float[] topSpeeds;
-    public bool isReverse;
     public float shiftTime = 0.1f;
-    
 }

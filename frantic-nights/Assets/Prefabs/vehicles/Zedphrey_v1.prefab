@@ -23,8 +23,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681041162937842687}
-  m_LocalRotation: {x: -0, y: 0.9525075, z: -0, w: -0.3045151}
-  m_LocalPosition: {x: -0.4839658, y: 0.34587097, z: 2.3258955}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.016, y: 0.34587097, z: 2.319}
   m_LocalScale: {x: 1.044394, y: 1, z: 1.0225171}
   m_Children: []
   m_Father: {fileID: 1833165061481859005}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4860716678596921745}
   - component: {fileID: 1811553097802059}
   m_Layer: 8
-  m_Name: RefactorTestVehicle1
+  m_Name: Zedphrey_v1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -6,6 +6,7 @@ using Rewired;
 
 public class VehicleController : MonoBehaviour
 {
+    Vehicle vehicle;
     VehicleAudioController audioController;
     VehicleUIController vehicleUIController;
     private PhysicsController physicsController;
@@ -54,11 +55,11 @@ public class VehicleController : MonoBehaviour
     public bool isRedlined = false;
     public float engineVelocity = 0f;
     public float engineSmooth = 0.3f;
+    public static float startSlipValue = .35f;
 
     //Wheels
     private WheelCollider[] wheelColliders;
     private WheelController[] wheelControllers;
-    public static float startSlipValue = .35f;
 
 
     //Transmission

@@ -5,6 +5,9 @@
 [Bb]uilds/
 Assets/AssetStoreTools*
 
+# Asset Packages
+frantic-nights/Assets/thirdparty*
+
 # Visual Studio cache directory
 .vs/
 
@@ -35,6 +38,3 @@ sysinfo.txt
 *.apk
 *.unitypackage
 *.meta
-
-# Asset Packages
-[Aa]ssets/thirdparty/
