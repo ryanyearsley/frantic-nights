@@ -116,15 +116,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 473f239355ea60d488987059d56342b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentCameraView: 0
   smoothing: 6
   lookAtTarget: {fileID: 0}
   positionTarget: {fileID: 0}
   sideView: {fileID: 0}
+  hoodView: {fileID: 0}
   advancedOptions:
     updateCameraInUpdate: 0
     updateCameraInFixedUpdate: 1
     updateCameraInLateUpdate: 0
     switchViewKey: 13
+    thirdPersonKey: 49
+    firstPersonKey: 50
 --- !u!114 &7564458600060428739
 MonoBehaviour:
   m_ObjectHideFlags: 0
