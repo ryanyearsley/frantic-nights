@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/scenes/mainmenu/mainmenu.unity
     guid: ec148afef78737a43a8ea4dbe31f3de3
   - enabled: 1
-    path: Assets/scenes/PointToPoint01.unity
-    guid: a85e55f1f29c52745bae94051c6023a8
-  - enabled: 1
-    path: Assets/scenes/HotLap01.unity
-    guid: 60a41108f01a13a47962231f472c973d
+    path: Assets/scenes/Island02.unity
+    guid: de7b62527dcc3284aa1a6b7dec5a5ac1
   m_configObjects: {}

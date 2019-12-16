@@ -5,8 +5,6 @@ using Rewired;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     public PlayerInputs currentInput;
 
     private VehicleController vehicleController;
@@ -65,8 +63,6 @@ public class PlayerController : MonoBehaviour
             print("player controller toggle ctrls");
             GameManager.instance.toggleControlsDisplay();
         }
-
-
     }
 
     public void resetPlayer()

@@ -5,8 +5,12 @@ using UnityEngine;
 public class WheelController : MonoBehaviour
 {
     public WheelCollider wheel;
+
+    private float sfxVolume;
     private RCC_Skidmarks skidmarks;
     private float currentSlip;
+    private float currentForwardSlip;
+    private float currentSidewaysSlip;
     public float startSlipValue = .35f;
     private int lastSkidmark = -1;
     public bool receivingPower = false;
@@ -23,6 +27,7 @@ public class WheelController : MonoBehaviour
         wheel = gameObject.GetComponent<WheelCollider>();
         skidmarks = GameObject.FindObjectOfType(typeof(RCC_Skidmarks)) as RCC_Skidmarks;
         tireAudioSource = GetComponent<AudioSource>();
+        sfxVolume = SaveGameManager.loadOptions().sfxVolume;
     }
 
     public void initializeWheel(DriveType driveType)
@@ -76,10 +81,11 @@ public class WheelController : MonoBehaviour
         {
             wheel.motorTorque = vehicleWheelMessage.currentTorque;
         }
-        else
+        else if (receivingPower)
             wheel.motorTorque = 0;
 
         //braking
+        //Debug.Log("current Brake: " + vehicleWheelMessage.currentBrake);
         wheel.brakeTorque = vehicleWheelMessage.currentBrake;
         if (!receivingTurnInput && pi.handBrakeButton)
             wheel.brakeTorque = 10000f;
@@ -106,16 +112,16 @@ public class WheelController : MonoBehaviour
         wheel.GetGroundHit(out GroundHit);
 
         // Forward, sideways, and total slips.
-        float wheelSlipAmountForward = Mathf.Abs(GroundHit.forwardSlip);
-        float wheelSlipAmountSideways = Mathf.Abs(GroundHit.sidewaysSlip);
+        currentForwardSlip = Mathf.Abs(GroundHit.forwardSlip);
+        currentSidewaysSlip = Mathf.Abs(GroundHit.sidewaysSlip);
 
-        currentSlip = Mathf.Lerp(currentSlip, (wheelSlipAmountSideways + wheelSlipAmountForward), Time.fixedDeltaTime * 3f) / 1f;
+        currentSlip = (currentSidewaysSlip + (currentForwardSlip / 3)) / 2;
 
         // If scene has skidmarks manager...
         if (skidmarks)
         {
             // If slips are bigger than target value...
-            if (wheelSlipAmountSideways + wheelSlipAmountForward > startSlipValue)
+            if (currentSlip > startSlipValue)
             {
 
                 Vector3 skidPoint = GroundHit.point + 2f * (velocity) * Time.deltaTime;
@@ -141,7 +147,7 @@ public class WheelController : MonoBehaviour
         if (currentSlip > startSlipValue) {
             if (!tireAudioSource.isPlaying)
                 tireAudioSource.Play();
-            tireAudioSource.volume = Mathf.Lerp(0f, 0.5f, currentSlip - 0);
+            tireAudioSource.volume = Mathf.Lerp(0f, sfxVolume / 2, currentSlip - 0);
             tireAudioSource.pitch = Mathf.Lerp(1f, .8f, tireAudioSource.volume);
         }
         else{

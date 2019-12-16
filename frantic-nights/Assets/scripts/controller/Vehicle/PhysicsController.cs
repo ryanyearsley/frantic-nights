@@ -7,9 +7,11 @@ public class PhysicsController : MonoBehaviour
     //Physics
     [SerializeField]
     private bool isGrounded;
+    private bool airMode;
     public Transform trans;
     public Rigidbody rb;
-    public Vector3 centerOfMass;
+    public Vector3 groundedCenterOfMass;
+    public Vector3 inAirCenterOfMass;
     public int airFloat;
     public int downforce;
     public int pushSpeed;
@@ -24,7 +26,7 @@ public class PhysicsController : MonoBehaviour
     {
         trans = transform.parent;
         rb = trans.GetComponent<Rigidbody>();
-        rb.centerOfMass = centerOfMass;
+        rb.centerOfMass = groundedCenterOfMass;
     }
 
     public void fixedUpdatePhysics(PlayerInputs playerInputs, VehicleWheelMessage vwm)
@@ -33,15 +35,19 @@ public class PhysicsController : MonoBehaviour
         isGrounded = Physics.Raycast(transform.position, down, 0.25f);
         if (!isGrounded)
         {
-            rb.AddForce(Vector3.up * airFloat * playerInputs.accelInput);
+            //in-air
+            rb.AddRelativeForce(Vector3.forward * pushSpeed * playerInputs.accelInput);
+            rb.AddForce(Vector3.down * pushSpeed * playerInputs.brakeInput);
+
             rb.AddRelativeTorque(Vector3.up * playerInputs.steeringInput * yawSpeed);
             rb.AddRelativeTorque(Vector3.back * playerInputs.rollInput * rotSpeed);
             rb.AddRelativeTorque(Vector3.right * playerInputs.pitchInput * pitchSpeed);
+            if (rb.centerOfMass.y != inAirCenterOfMass.y)
+                rb.centerOfMass = inAirCenterOfMass;
         }
-        else //ground control forces
+        else 
         {
-
-
+            //ground control forces
             rb.AddRelativeTorque(Vector3.back * playerInputs.rollInput * groundRotSpeed);
             rb.AddRelativeTorque(Vector3.right * playerInputs.pitchInput * groundPitchSpeed);
 
@@ -51,6 +57,9 @@ public class PhysicsController : MonoBehaviour
 
             rb.AddRelativeTorque(Vector3.up * playerInputs.steeringInput * yawSpeed * yawSpeedGoverner);
             rb.AddRelativeForce(Vector3.down * downforce);
+
+            if (rb.centerOfMass.y != groundedCenterOfMass.y)
+                rb.centerOfMass = groundedCenterOfMass;
         }
         //handbrake yaw power change
         if (playerInputs.handBrakeButton)

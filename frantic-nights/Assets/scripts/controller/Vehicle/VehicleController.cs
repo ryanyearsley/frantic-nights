@@ -110,6 +110,7 @@ public class VehicleController : MonoBehaviour
 
         initializeGears();
         visualsController.initializeVisualsController();
+        audioController.initializeAudio();
 
     }
 

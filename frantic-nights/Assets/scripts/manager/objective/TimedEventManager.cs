@@ -9,6 +9,7 @@ public class TimedEventManager : GameManager
     public GameObject timeWidget;
     public GameObject splitUI;
 
+
     //static vars
     [SerializeField]
     public float timeToBeatSeconds;
@@ -123,12 +124,14 @@ public class TimedEventManager : GameManager
         bool isValidTime = TimeUtility.validateTime(currentAttempt, splitCount);
         if (isValidTime)
         {
+            playerOne.lapsCompleted += 1;
+            SaveGameManager.savePlayer(playerOne, 0);
             lastAttempt = currentAttempt;
             lastAttemptTxt.text = TimeUtility.convertFloatToTimeString(lastAttempt.time);
             allAttempts.Add(lastAttempt);
             if (lastAttempt.time < timeToBeatSeconds)
             {
-                transmitGameMessage("WINNER!", "Press F to pay respects.", 3);
+                transmitGameMessage("WINNER!", "Use the Main Menu button to return.", 3);
             }
             else
                 transmitGameMessage("LOSER!", 3);

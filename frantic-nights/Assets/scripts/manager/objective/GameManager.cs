@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public PlayerData playerOne;
+    //public PlayerData playerTwo;
+
     private PlayerController[] playerControllers;
 
     public GameObject gameMessageWidget;
@@ -42,8 +45,15 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    public void savePlayerProgress()
+    {
+        SaveGameManager.savePlayer(playerOne, 1);
+    }
+
     protected virtual void initializeGameManager()
     {
+        playerOne = SaveGameManager.loadPlayer(0);
         GameObject widget = Instantiate(gameMessageWidget, GameObject.FindObjectOfType<Canvas>().transform);
         gameMessageText = widget.transform.Find("GameMessage").gameObject.GetComponent<Text>();
         gameMessageSecondaryText = widget.transform.Find("GameMessageSecondary").gameObject.GetComponent<Text>();
