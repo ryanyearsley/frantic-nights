@@ -199,7 +199,7 @@ public class VehicleController : MonoBehaviour
         currentSpeed = rb.velocity.magnitude * 3.6f;
         calculateEngineOutputArcade(pi.accelInput);
         calculateBrakeOutput(pi.brakeInput);
-        calculateSteeringAngle(pi.steeringInput);
+        calculateSteeringAngleRaw(pi.steeringInput);
         return generateVehicleMessage();
     }
 
