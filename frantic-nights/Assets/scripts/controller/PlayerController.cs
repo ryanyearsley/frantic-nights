@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         currentInput.accelInput = player.GetAxisRaw("Accelerate");
         currentInput.brakeInput = player.GetAxisRaw("Brake");
-        currentInput.clutchInput = 1f;
+        currentInput.clutchInput = 0;
         currentInput.steeringInput = player.GetAxisRaw("Steering");
         currentInput.gearUpButtonDown = player.GetButtonDown("GearUp");
         currentInput.gearDownButtonDown = player.GetButtonDown("GearDown");
